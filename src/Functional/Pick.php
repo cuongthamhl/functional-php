@@ -43,14 +43,14 @@ function pick($collection, $index, $default = null, $callback = null)
         InvalidArgumentException::assertCallback($callback, __FUNCTION__, 2);
     }
 
-    if (null === $callback) {
-        $callback = function ($collection, $propertyName) {
-            return isset($collection[$propertyName]);
-        };
-    }
-
-    if (true !== call_user_func($callback, $collection, $index)) {
-        return $default;
+    if ($callback === null) {
+        if (!isset($collection[$index])) {
+            return $default;
+        }
+    } else {
+        if (!call_user_func($callback, $collection, $index)) {
+            return $default;
+        }
     }
 
     return $collection[$index];

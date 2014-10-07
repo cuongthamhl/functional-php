@@ -53,19 +53,21 @@ class PickTest extends AbstractTestCase
         $this->assertSame('default', pick($this->array_1, 'non-existing-index', 'default'));
     }
 
-    /**
-     * @expectedException \Functional\Exceptions\InvalidArgumentException
-     */
     function testInvalidCollectionShouldThrowException()
     {
+        $this->setExpectedException(
+            '\Functional\Exceptions\InvalidArgumentException'
+        );
+
         pick(null, '');
     }
 
-    /**
-     * @expectedException \Functional\Exceptions\InvalidArgumentException
-     */
     function testInvalidCallbackShouldThrowException()
     {
+        $this->setExpectedException(
+            '\Functional\Exceptions\InvalidArgumentException'
+        );
+
         pick($this->array_1, '', null, 'not-a-callback');
     }
 
